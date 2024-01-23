@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  tt_backend:
+    image: tt_backend
+    build: 
+      context: ./tt-backend/tt-backend
+    container_name: tt-backend
+    ports:
+      - "5201:5201"
+    networks:
+      - tt-network
+
+  tt-frontend:
+    container_name: tt-frontend
+    image: tt_frontend
+    build: 
+      context: ./tt-frontend
+    ports:
+      - "3000:80"
+    networks:
+      - tt-network
+    depends_on:
+      - tt_backend
+    environment:      
+      BACKEND_URL: 'http://tt_backend:5201'
+
+networks:
+  tt-network:
+    driver: bridge
+
+    
