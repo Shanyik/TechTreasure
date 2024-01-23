@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tt-backend", "tt-backend\tt-backend.csproj", "{9739A564-12D2-4AAB-A6F0-8A26B814F26D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tt-backend", "tt-backend\tt-backend.csproj", "{F62DC2B2-F3FF-4EAB-A48B-3549F4FD245E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9739A564-12D2-4AAB-A6F0-8A26B814F26D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9739A564-12D2-4AAB-A6F0-8A26B814F26D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9739A564-12D2-4AAB-A6F0-8A26B814F26D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9739A564-12D2-4AAB-A6F0-8A26B814F26D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F62DC2B2-F3FF-4EAB-A48B-3549F4FD245E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F62DC2B2-F3FF-4EAB-A48B-3549F4FD245E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F62DC2B2-F3FF-4EAB-A48B-3549F4FD245E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F62DC2B2-F3FF-4EAB-A48B-3549F4FD245E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
