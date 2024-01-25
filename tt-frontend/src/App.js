@@ -6,7 +6,7 @@ function App() {
   const [ads, setAds] = useState(null)
 
   const handleOnClick = () => {
-    fetch('api/Ad/GetAll', {
+    fetch('http://localhost:5201/api/Ad/GetAll', {
       method: 'GET',
   })
       .then(response => {return response.json()})

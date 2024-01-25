@@ -8,6 +8,8 @@ services:
     container_name: tt-backend
     ports:
       - "5201:5201"
+    depends_on:
+      - tt-db
     networks:
       - tt-network
 
@@ -24,6 +26,27 @@ services:
       - tt_backend
     environment:      
       BACKEND_URL: 'http://tt_backend:5201'
+
+  tt-db:
+    container_name: tt-db
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=TechTreasure
+    ports:
+      - "5433:5432"
+    expose:
+      - 5433
+      - 5432
+    volumes:
+      - app_data:/var/lib/postgresql/data
+    networks:
+      - tt-network
+
+volumes:
+  app_data:
 
 networks:
   tt-network:

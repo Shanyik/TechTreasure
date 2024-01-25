@@ -34,4 +34,20 @@ app.UseCors(corsPolicyBuilder =>
     
 });
 
+ApplyMigrations();
+
 app.Run();
+
+void ApplyMigrations(){
+    Console.WriteLine("Applying migrations");
+    var webHost = new WebHostBuilder()
+        .UseContentRoot(Directory.GetCurrentDirectory())
+        .UseStartup<ConsoleStartup>()
+        .Build();
+    using (var context = (DatabaseContext) webHost.Services.GetService(typeof(DatabaseContext)))
+    {
+        context.Database.Migrate();
+    }
+    Console.WriteLine("Done");
+}
+}

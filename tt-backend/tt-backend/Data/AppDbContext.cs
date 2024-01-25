@@ -17,6 +17,7 @@ public class AppDbContext : DbContext
     {
         // connect to postgres with connection string from app settings
         options.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
+        Console.WriteLine(Configuration.GetConnectionString("WebApiDatabase"));
     }
 
     public DbSet<Ad> Ads { get; set; }

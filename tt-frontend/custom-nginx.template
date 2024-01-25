@@ -7,7 +7,7 @@ server {
     listen 80;
 
     location /api/ {
-      proxy_pass http://localhost:5136;
+      proxy_pass http://localhost:5201;
     }
 
     location / {
