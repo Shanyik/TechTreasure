@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using tt_backend.Repository.AdRepo;
 
 namespace tt_backend.Controller;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]"), Authorize]
 
 public class AdController : ControllerBase
 {

@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using tt_backend.Model;
 
 namespace tt_backend.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext
 {
     protected readonly IConfiguration Configuration;
 
@@ -30,6 +31,8 @@ public class AppDbContext : DbContext
                 new Ad {Id = 2, Name = "GPU", Description = "Decent gpu"},
                 new Ad {Id = 3, Name = "RAM", Description = "Broken ram"}
             );
+        
+        base.OnModelCreating(builder);
     }
 
 }
