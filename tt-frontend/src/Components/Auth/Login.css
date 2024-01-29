@@ -1,0 +1,113 @@
+/*https://cssloaders.github.io/*/
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border-width: 3px;
+    border-style: dashed solid  solid dotted;
+    border-color: #FF3D00 #FF3D00 transparent #FF3D00;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+  .loader::after {
+    content: '';  
+    box-sizing: border-box;
+    position: absolute;
+    left: 20px;
+    top: 31px;
+    border: 10px solid transparent;
+    border-right-color: #FF3D00;
+    transform: rotate(-40deg);
+  }
+  
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } 
+  
+
+  .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Additional styling properties */
+    max-width: 400px; /* Set your desired maximum width */
+    width: 100%; /* Ensures the container doesn't exceed its parent's width */
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    /* Styling for the form groups, labels, and inputs remain the same */
+    .form-group {
+      display: flex; /* Center the input elements */
+      flex-direction: column;
+      align-items: center; /* Center horizontally within the column */
+    }
+    
+    .form-label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .form-input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 16px;
+      width: 90%;
+    }
+    
+    .form-submit {
+      background-color: #0074d9;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 3px;
+      cursor: pointer;
+      margin: 5px;
+      margin-top: 20px;
+    }
+    
+    .form-submit:hover {
+      background-color: #0056b3;
+      color: #fff;
+    }
+  
+    .form-goBack {
+      background-color: #d90000;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 3px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    
+    .form-goBack:hover {
+      background-color: #ff0303;
+      color: #fff;
+    }
+    
+    .form-error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 15px;
+      margin: 3px;
+    }

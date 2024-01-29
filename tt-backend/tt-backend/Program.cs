@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using tt_backend.Data;
+using tt_backend.Model;
 using tt_backend.Repository.AdRepo;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,13 +21,15 @@ builder.Services.AddSwaggerGen(options =>
     
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
-builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddDbContext<AppDbContext>(options => 
+    options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
 
 //Auth
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+builder.Services
+    .AddIdentityApiEndpoints<AppUser>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 //Services
@@ -39,7 +43,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapIdentityApi<IdentityUser>();
+app.MapGroup("/api/account").MapIdentityApi<AppUser>();
 
 app.UseHttpsRedirection();
 

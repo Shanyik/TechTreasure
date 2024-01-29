@@ -1,24 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using tt_backend.Model;
 
 namespace tt_backend.Data;
 
-public class AppDbContext : IdentityDbContext
+public class AppDbContext : IdentityDbContext<AppUser>
 {
-    protected readonly IConfiguration Configuration;
-
-    public AppDbContext(IConfiguration configuration)
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
     {
-        Configuration = configuration;
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
-        // connect to postgres with connection string from app settings
-        options.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
-        Console.WriteLine(Configuration.GetConnectionString("WebApiDatabase"));
     }
 
     public DbSet<Ad> Ads { get; set; }

@@ -5,7 +5,7 @@ using tt_backend.Repository.AdRepo;
 namespace tt_backend.Controller;
 
 [ApiController]
-[Route("api/[controller]"), Authorize]
+[Route("api/[controller]")]
 
 public class AdController : ControllerBase
 {

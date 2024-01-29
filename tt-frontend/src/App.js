@@ -1,41 +1,22 @@
-import { useState } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import GetAllAdsTest from './Components/GetAllAdsTest';
+import Login from './Components/Auth/Login';
 
 function App() {
 
-  const [ads, setAds] = useState(null)
-
-  const handleOnClick = () => {
-    fetch('http://localhost:5201/api/Ad/GetAll', {
-      method: 'GET',
-  })
-      .then(response => {return response.json()})
-      .then(data => {
-          setAds(data)
-          console.log(data);
-      }
-      )
-      .catch(error => console.log(error))
-  }
+  
 
   return (
     
-    <div className="App">
-      <button onClick={() => {handleOnClick()}}>GetAllAds</button>
-      {
-        ads ? (
-          ads.map((ad) => (
-            <>
-              <p>id: {ad.id}</p>
-              <p>name: {ad.name}</p>
-              <p>description: {ad.description}</p>
-            </>
-          ))
-        ) : (
-          <p>Waiting for connection...</p>
-        )
-      }
-    </div>
+    <Router>
+      <div className='App'>
+        <Routes>
+          <Route path='/getalladstest' element={<GetAllAdsTest/>}></Route>
+          <Route path='/login' element={<Login/>}></Route>
+        </Routes>
+      </div>
+    </Router>
     
   );
 }
