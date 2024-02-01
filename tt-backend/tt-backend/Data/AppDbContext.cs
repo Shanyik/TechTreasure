@@ -12,12 +12,14 @@ public class AppDbContext : IdentityDbContext<AppUser>
     }
 
     public DbSet<Ad> Ads { get; set; }
+    public DbSet<AdImage> AdImages{ get; set; }
+    public DbSet<Review> Reviews { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Ad>()
             .HasData(
-                new Ad {Id = 1, Name = "CPU", Description = "Very good cpu"},
+                new Ad {Id = 1, Name = "CPU", Description = "Very good cpu", },
                 new Ad {Id = 2, Name = "GPU", Description = "Decent gpu"},
                 new Ad {Id = 3, Name = "RAM", Description = "Broken ram"}
             );
