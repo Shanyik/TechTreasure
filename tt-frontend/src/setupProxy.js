@@ -6,6 +6,7 @@ module.exports = function(app) {
     createProxyMiddleware({
       target: process.env.BACKEND_URL || 'http://localhost:5201',
       changeOrigin: true,
+      credentials: true,
     })
   );
 };
