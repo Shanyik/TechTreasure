@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using tt_backend.Model;
 
@@ -17,6 +18,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        
         base.OnModelCreating(builder);
     }
 
