@@ -16,7 +16,7 @@ public class AdController : ControllerBase
         _adRepository = adRepository;
     }
     
-    [HttpGet("GetAll")]
+    [HttpGet("GetAll"), Authorize]
     public async Task<IActionResult> GetAll()
     {
         try

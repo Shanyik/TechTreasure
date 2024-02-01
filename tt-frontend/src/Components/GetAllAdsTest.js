@@ -7,6 +7,11 @@ const GetAllAdsTest = () => {
     const handleOnClick = () => {
       fetch('http://localhost:5201/api/Ad/GetAll', {
         method: 'GET',
+        credentials: 'include',
+        headers: {
+            "Content-Type": "application/json",
+            
+        },
     })
         .then(response => {return response.json()})
         .then(data => {

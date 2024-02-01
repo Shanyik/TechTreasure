@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -43,7 +44,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//Auth
+
 app.MapGroup("/api/account").MapIdentityApi<AppUser>();
+
+app.MapPost("/api/account/logout", async (SignInManager<AppUser> signInManager) =>
+{
+    await signInManager.SignOutAsync();
+    return Results.Ok();
+}).RequireAuthorization();
+
+app.MapGet("/api/pingauth", (ClaimsPrincipal user) =>
+{
+    var email = user.FindFirstValue(ClaimTypes.Email);
+    return Results.Json(new { Email = email });
+}).RequireAuthorization();
 
 app.UseHttpsRedirection();
 
@@ -56,8 +71,9 @@ app.UseCors(corsPolicyBuilder =>
     corsPolicyBuilder
         .WithOrigins("http://localhost:3000")
         .AllowAnyMethod()
-        .AllowAnyHeader();
-    
+        .AllowAnyHeader()
+        .AllowCredentials();
+
 });
 
 app.Run();

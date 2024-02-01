@@ -2,40 +2,29 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-const loginFetch = (data) => {
-    return fetch(`api/account/login`, {
+const loginFetch = (data, loginurl) => {
+    return fetch(loginurl, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(data),
-    }).then((res) => res.json());
+    })
   };
 
 const Login = () => {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [result, setResult] = useState(null);
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberme, setRememberme] = useState(false);
   const [loading, setLoading] = useState(null);
-
+  const [result, setResult] = useState(null);
   const navigate = useNavigate();
 
-  const emailHandler = (input) => {
-    setEmail(input.target.value);
-    console.log(input.target.value);
-  };
-
-  const passwordHandler = (input) => {
-    setPassword(input.target.value);
-    console.log(input.target.value);
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      loginHandler();
-    }
-  }
+  const handleChange = (e, name) => {
+    if (name === "email") setEmail(e.target.value);
+    if (name === "password") setPassword(e.target.value);
+    if (name === "rememberme") setRememberme(e.target.checked);
+};
 
   const handleGoBack = () => {
     navigate("/")
@@ -46,12 +35,23 @@ const Login = () => {
       email: email,
       password: password,
     };
+
+    var loginurl = "";
+      if (rememberme == true)
+        loginurl = "/api/account/login?useCookies=true";
+      else
+        loginurl = "/api/account/login?useSessionCookies=true";
+
     console.log(data);
     if (data.email === null || data.password === null) {
       setResult("noData")
     } else {
-      loginFetch(data).then((res) => {
-        console.log(res)
+      loginFetch(data, loginurl).then((res) => {
+        console.log(res.status);
+        if (res.status === 200){
+          window.location.href = "/getalladstest"
+        }
+        
       });
     }
 
@@ -66,16 +66,18 @@ const Login = () => {
           <>
             <div className="form-heading">Login</div>
             <div id="loginResult" className="form-error">
+            <div id="loginResult" className="form-error">
               {result === false ? "Wrong Email or password" :
                 result === "noData" ? "Email/Username and password required!" : ""}
+            </div>
             </div>
             <div className="form-group">
               <label className="form-label">Email:</label>
               <input
-                type="text"
-                onChange={(e) => {
-                  emailHandler(e);
-                }}
+                type="email"
+                id="email"
+                name="email"
+                onChange={(e) => handleChange(e, "email")}
                 className="form-input"
               />
             </div>
@@ -83,14 +85,20 @@ const Login = () => {
               <label className="form-label">Password:</label>
               <input
                 type="password"
-                onChange={(e) => {
-                  passwordHandler(e);
-                }}
-                onKeyDown={(e) => handleKeyPress(e)}
+                id="password"
+                name="password"
+                onChange={(e) => handleChange(e, "password")}
                 className="form-input"
               />
             </div>
-            <button onClick={() => (handleGoBack())} className="form-goBack">Go Back</button>
+            <div>
+                <input
+                type="checkbox"
+                id="rememberme"
+                name="rememberme"
+                onChange={(e) => handleChange(e, "rememberme")} /><span>Remember Me</span>
+            </div>
+            <button onClick={() => handleGoBack()} className="form-goBack">Go Back</button>
             <button onClick={() => loginHandler()} className="form-submit">Login</button>
           </>
         ) : (
