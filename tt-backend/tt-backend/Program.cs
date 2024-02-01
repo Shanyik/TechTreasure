@@ -38,6 +38,15 @@ builder.Services.AddScoped<IAdRepository, AdRepository>();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+
+    // Seed data when the application starts
+    context.SeedData();
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -75,5 +84,6 @@ app.UseCors(corsPolicyBuilder =>
         .AllowCredentials();
 
 });
+
 
 app.Run();
