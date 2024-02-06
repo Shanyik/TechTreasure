@@ -16,12 +16,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<AdImage> AdImages{ get; set; }
     public DbSet<Review> Reviews { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        
-        base.OnModelCreating(builder);
-    }
-
     public void SeedData()
     {
         Seed.SeedData(this);

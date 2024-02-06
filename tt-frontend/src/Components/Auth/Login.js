@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import './Auth.css';
 
 const loginFetch = (data, loginurl) => {
     return fetch(loginurl, {

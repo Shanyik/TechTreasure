@@ -66,7 +66,7 @@ app.MapPost("/api/account/logout", async (SignInManager<AppUser> signInManager) 
 app.MapGet("/api/pingauth", (ClaimsPrincipal user) =>
 {
     var email = user.FindFirstValue(ClaimTypes.Email);
-    return Results.Json(new { Email = email });
+    return Results.Json(new { Email = email});
 }).RequireAuthorization();
 
 app.UseHttpsRedirection();
