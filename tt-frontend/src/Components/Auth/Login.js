@@ -12,8 +12,16 @@ const loginFetch = (data, loginurl) => {
     })
   };
 
+  const Popup = (message) => {
+    return (
+        <div className="form-error">
+          <div>{message.message}</div>
+        </div>
+    );
+  };
+
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberme, setRememberme] = useState(false);
   const [loading, setLoading] = useState(null);
@@ -21,7 +29,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleChange = (e, name) => {
-    if (name === "email") setEmail(e.target.value);
+    if (name === "username") setUsername(e.target.value);
     if (name === "password") setPassword(e.target.value);
     if (name === "rememberme") setRememberme(e.target.checked);
 };
@@ -32,7 +40,7 @@ const Login = () => {
 
   const loginHandler = () => {
     const data = {
-      email: email,
+      username: username,
       password: password,
     };
 
@@ -43,13 +51,15 @@ const Login = () => {
         loginurl = "/api/account/login?useSessionCookies=true";
 
     console.log(data);
-    if (data.email === null || data.password === null) {
-      setResult("noData")
+    if (data.username === "" || data.password === "") {
+      setResult("One or more fields are empty!")
     } else {
       loginFetch(data, loginurl).then((res) => {
         console.log(res.status);
         if (res.status === 200){
           window.location.href = "/getalladstest"
+        }else {
+          setResult("Wrong username / password!")
         }
         
       });
@@ -61,23 +71,22 @@ const Login = () => {
 
   return (
     <div className="container">
+      {result && <Popup  message={result} />}
       {
         loading === null ? (
           <>
             <div className="form-heading">Login</div>
             <div id="loginResult" className="form-error">
             <div id="loginResult" className="form-error">
-              {result === false ? "Wrong Email or password" :
-                result === "noData" ? "Email/Username and password required!" : ""}
             </div>
             </div>
             <div className="form-group">
-              <label className="form-label">Email:</label>
+              <label className="form-label">Username:</label>
               <input
-                type="email"
-                id="email"
-                name="email"
-                onChange={(e) => handleChange(e, "email")}
+                type="username"
+                id="eusername"
+                name="username"
+                onChange={(e) => handleChange(e, "username")}
                 className="form-input"
               />
             </div>

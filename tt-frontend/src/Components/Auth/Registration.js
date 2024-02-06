@@ -92,6 +92,7 @@ const Registration = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}$/;
         const phoneNumberRegex = /^\d{9}$/;
+        const postalCodeRegex = /^\d{4}$/;
 
         console.log(emailRegex.test(data.email))
         console.log(passwordRegex.test(data.password))
@@ -102,7 +103,7 @@ const Registration = () => {
           !passwordRegex.test(data.password) ||
           !phoneNumberRegex.test(data.phoneNumber)
         ) {
-          setResult('invalidData');
+          setResult('One or more fields have invalid data!');
         } else {
           console.log(data)
           registrationFetch(data).then((res) => {
