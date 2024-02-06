@@ -29,6 +29,7 @@ public class UserController : ControllerBase
             Address = model.Address,
             UserName = model.UserName,
             PasswordHash = model.Password,
+            PhoneNumber = model.PhoneNumber
         };
         var result = await userManager.CreateAsync(user, user.PasswordHash!);
         if (result.Succeeded)
