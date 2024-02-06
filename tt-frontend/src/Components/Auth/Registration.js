@@ -13,6 +13,14 @@ const registrationFetch = (data) => {
     });
   };
 
+  const Popup = (message) => {
+    return (
+        <div className="form-error">
+          <div>{message.message}</div>
+        </div>
+    );
+  };
+
 const Registration = () => {
 
     
@@ -29,7 +37,11 @@ const Registration = () => {
     const [street, setStreet] = useState('');
     const [loading, setLoading] = useState(null);
     const [result, setResult] = useState(null);
+
     const navigate = useNavigate();
+    const handleGoBack = () => {
+      navigate("/")
+    } 
 
     const handleChange = (e, name) => {
         if (name === 'username') setUsername(e.target.value);
@@ -44,9 +56,6 @@ const Registration = () => {
         if (name === 'lastName') setLastName(e.target.value);
         if (name === 'firstName') setFirstName(e.target.value);
       };
-    const handleGoBack = () => {
-        navigate("/")
-    }
 
       const registrationHandler = () => {
 
@@ -61,6 +70,23 @@ const Registration = () => {
           lastName: lastName,
           firstName: firstName
         };
+
+        // Check if any of the required fields are empty
+
+        if (
+          username.trim() === '' ||
+          email.trim() === '' ||
+          password.trim() === '' ||
+          phoneNumber.trim() === '' ||
+          country.trim() === '' ||
+          postalCode.trim() === '' ||
+          state.trim() === '' ||
+          city.trim() === '' ||
+          street.trim() === '' 
+        ) {
+          setResult('One or more fields are empty!');
+          return;
+        }
     
         // Validation Criteria
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -90,6 +116,7 @@ const Registration = () => {
 
   return (
     <div className="container">
+      {result && <Popup  message={result} />}
       {loading === null ? (
         <>
           <div className="form-heading">Registration</div>
