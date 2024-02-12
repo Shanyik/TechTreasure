@@ -9,6 +9,7 @@ public class Ad
     public string Category { get; set; }
     public string Location { get; set; }
     public string Condition { get; set; }
+    public string Sold { get; set; }
     public DateTime DatePosted { get; set; }
     public int Views { get; set; }
     public AppUser Seller { get; set; }
