@@ -18,7 +18,7 @@ public class AdRepository : IAdRepository
         return await _context.Ads.Include(ad => ad.Seller).AsNoTracking().ToListAsync();
     }
 
-    public async Task Add(Ad ad)
+    public async Task Create(Ad ad)
     {
         await _context.AddAsync(ad);
         await _context.SaveChangesAsync();

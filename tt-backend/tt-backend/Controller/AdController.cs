@@ -16,7 +16,7 @@ public class AdController : ControllerBase
     {
         _adRepository = adRepository;
     }
-    
+
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll()
     {
@@ -35,18 +35,18 @@ public class AdController : ControllerBase
             return BadRequest("not found");
         }
     }
-    
-    [HttpPost("Add"), Authorize]
-    public async Task<IActionResult> AddDoctor(Ad ad)
+
+    [HttpPost("Create"), Authorize]
+    public async Task<IActionResult> Create(Ad ad)
     {
         if (ad == null)
         {
             return BadRequest("Something is wrong with the ad!");
         }
-        
+
         try
         {
-            await _adRepository.Add(ad);
+            await _adRepository.Create(ad);
             return Ok("Added successfully!");
         }
         catch (Exception e)
@@ -54,16 +54,16 @@ public class AdController : ControllerBase
             return BadRequest("Error connecting to the database! Try again later!");
         }
     }
-    
+
     [HttpGet("GetById:{id}")]
     public async Task<IActionResult> GetById(int id)
     {
         try
         {
             var ad = await _adRepository.GetById(id);
-            
+
             if (ad == null)
-            { 
+            {
                 return NotFound("Ad not found in database.");
             }
 
@@ -74,7 +74,7 @@ public class AdController : ControllerBase
             return BadRequest("Error connecting to the database! Try again later!");
         }
     }
-    
+
     [HttpGet("GetAllByUserId")]
     public async Task<IActionResult> GetAllByUserId(string id)
     {

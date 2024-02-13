@@ -2,9 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-//import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-//import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -42,6 +40,14 @@ function NavBar() {
 
   const handleProfile = () => {
     navigate("/profile")
+  }
+
+  const handleCreate = () => {
+    navigate("/ad/create")
+  }
+
+  const handleSearch = () => {
+    //nedd to do
   } 
 
   const handleLogOut = () => {
@@ -63,43 +69,32 @@ function NavBar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand onClick={() => {navigate("/")}}>TechTreasure</Navbar.Brand>
+        <Navbar.Brand onClick={() => {navigate("/")} } className="me-5">TechTreasure</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
-          {/*
-          <Nav
-            className="d-flex justify-content-center"
-            style={{ maxHeight: '100px' }}
-            navbarScroll
-          >
-            <NavDropdown title="Link" id="navbarScrollingDropdown" >
-              <NavDropdown.Item href="#action3">Categories</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action4">People</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          */}
-          <Form className="d-flex flex-grow-1 justify-content-center">
-            <div className="w-50"> 
+          <Form className="d-flex justify-content-center align-items-center flex-grow-1">
+            <div className="w-100 d-flex align-items-center justify-content-between"> 
               <Form.Control
                 type="search"
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
               />
+              <Button variant="success" className="me-5" onClick={() =>{handleSearch()}}>Search</Button>
             </div>
           </Form>
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center justify-content-center">
             {loggedIn ? (
-              <>
-                <Button variant="secondary" className="me-2" onClick={() =>{handleProfile()}}>Profile</Button>
+              <div className="d-flex align-items-center">
+                <Button variant="success" className="me-2" onClick={() =>{handleCreate()}}>Create Ad</Button>
+                <Button variant="warning" className="me-2" onClick={() =>{handleProfile()}}>Profile</Button>
                 <Button variant="danger" onClick={() =>{handleLogOut()}}>Sign Out</Button>
-              </>
+              </div>
              ) : (
-              <>
+              <div className="d-flex align-items-center">
                 <Button variant="outline-primary" className="me-2" onClick={() =>{handleLogin()}}>Login</Button>
                 <Button variant="primary" onClick={() =>{handleRegistration()}}>Register</Button>
-              </>
+              </div>
             )}
             
           </div>

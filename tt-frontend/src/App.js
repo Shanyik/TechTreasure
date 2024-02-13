@@ -14,14 +14,14 @@ function App() {
     
     <Router>
       <div className='App'>
-        <NavBar/>
+        <NavBar />
         <Routes>
-        <Route path='/' element={<Home/>}></Route>
-          <Route path='/getalladstest' element={<GetAllAdsTest/>}></Route>
-          <Route path='/login' element={<Login/>}></Route>
-          <Route path='/registration' element={<Registration/>}></Route>
+          <Route path='/' element={<Home />} />
+          <Route path='/getalladstest' element={<GetAllAdsTest />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/registration' element={<Registration />} />
         </Routes>
-      </div>
+        </div>
     </Router>
     
   );
