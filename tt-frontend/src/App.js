@@ -7,6 +7,7 @@ import Registration from './Components/Auth/Registration';
 import Home from './Components/Home/Home';
 import NavBar from './Components/NavBar/NavBar';
 
+
 function App() {
 
   return (

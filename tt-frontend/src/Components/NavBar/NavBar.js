@@ -5,9 +5,30 @@ import Form from 'react-bootstrap/Form';
 //import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 //import NavDropdown from 'react-bootstrap/NavDropdown';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 function NavBar() {
+
+  const [loggedIn, setLoggedIn] = useState(false)
+
+  useEffect(() => {
+    fetch('/api/pingauth', {
+      method: 'GET',
+      headers: {
+          "Content-Type": "application/json",
+          
+      },
+  })
+      .then(response => {return response.json()})
+      .then(data => {
+          if (data !== ""){
+            setLoggedIn(true);
+          }
+      }
+      )
+      .catch(error => console.log(error))
+  }, []);
 
   const navigate = useNavigate();
 
@@ -18,6 +39,26 @@ function NavBar() {
   const handleRegistration = () => {
       navigate("/registration")
    } 
+
+  const handleProfile = () => {
+    navigate("/profile")
+  } 
+
+  const handleLogOut = () => {
+    fetch('/api/account/logout', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        
+    },
+    })
+      .then(data => {
+        console.log(data)
+        if(data.status === 200){
+          window.location.href = "/"
+        }
+      })
+  }
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -49,8 +90,18 @@ function NavBar() {
             </div>
           </Form>
           <div className="d-flex align-items-center">
-            <Button variant="outline-primary" className="me-2" onClick={() =>{handleLogin()}}>Login</Button>
-            <Button variant="primary" onClick={() =>{handleRegistration()}}>Register</Button>
+            {loggedIn ? (
+              <>
+                <Button variant="secondary" className="me-2" onClick={() =>{handleProfile()}}>Profile</Button>
+                <Button variant="danger" onClick={() =>{handleLogOut()}}>Sign Out</Button>
+              </>
+             ) : (
+              <>
+                <Button variant="outline-primary" className="me-2" onClick={() =>{handleLogin()}}>Login</Button>
+                <Button variant="primary" onClick={() =>{handleRegistration()}}>Register</Button>
+              </>
+            )}
+            
           </div>
         </Navbar.Collapse>
       </Container>

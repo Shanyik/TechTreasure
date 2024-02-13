@@ -15,7 +15,7 @@ public class AdRepository : IAdRepository
     
     public async Task<IEnumerable<Ad>> GetAll()
     {
-        return await _context.Ads.ToListAsync();
+        return await _context.Ads.Include(ad => ad.Seller).AsNoTracking().ToListAsync();
     }
 
     public async Task Add(Ad ad)

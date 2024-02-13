@@ -21,7 +21,7 @@ const loginFetch = (data, loginurl) => {
   };
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberme, setRememberme] = useState(false);
   const [loading, setLoading] = useState(null);
@@ -29,7 +29,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleChange = (e, name) => {
-    if (name === "username") setUsername(e.target.value);
+    if (name === "username") setusername(e.target.value);
     if (name === "password") setPassword(e.target.value);
     if (name === "rememberme") setRememberme(e.target.checked);
 };
@@ -40,7 +40,7 @@ const Login = () => {
 
   const loginHandler = () => {
     const data = {
-      username: username,
+      email: username,
       password: password,
     };
 
@@ -55,9 +55,9 @@ const Login = () => {
       setResult("One or more fields are empty!")
     } else {
       loginFetch(data, loginurl).then((res) => {
-        console.log(res.status);
+        console.log(res);
         if (res.status === 200){
-          window.location.href = "/getalladstest"
+          window.location.href = "/"
         }else {
           setResult("Wrong username / password!")
         }
@@ -81,7 +81,7 @@ const Login = () => {
             </div>
             </div>
             <div className="form-group">
-              <label className="form-label">Username:</label>
+              <label className="form-label">username:</label>
               <input
                 type="username"
                 id="eusername"
