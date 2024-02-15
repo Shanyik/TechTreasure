@@ -31,6 +31,6 @@ public class AdRepository : IAdRepository
 
     public async Task<IEnumerable<Ad>> GetAllByUserId(string id)
     {
-        return await _context.Ads.Where(ad => ad.Seller.Id == id).ToListAsync();
+        return await _context.Ads.Include(ad => ad.Seller).Where(ad => ad.Seller.Id == id).ToListAsync();
     }
 }

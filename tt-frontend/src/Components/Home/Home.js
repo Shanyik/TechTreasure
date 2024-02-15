@@ -34,10 +34,10 @@ const Home = () => {
         <h1>Featured Ads</h1>
       </div>
       <Container style={{ minWidth: '80%', margin: 'auto', position: "relative", transform: "translate(0, 0)", left: 0, top: 0}}>
-        <Row  md={4} className="g-4"> {/* 2 columns for extra small screens, 8 columns for medium screens */}
+        <Row  md={4} className="g-4"> 
           {currentAds.map((ad, index) => (
             <Col key={index}>
-              <Card className="h-100 d-flex align-items-center justify-content-center"> {/* Ensure cards take full height */}
+              <Card className="h-100 d-flex align-items-center justify-content-center"> 
                 {ad.images && ad.images.length > 0 ? (
                   <Card.Img variant="top" src={ad.images[0].url} />
                 ) : (

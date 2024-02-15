@@ -68,7 +68,7 @@ function NavBar() {
 
   return (
     <div>
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-tertiary fixed-top" >
       <Container fluid>
         <Navbar.Brand onClick={() => {navigate("/")} } className="me-5">TechTreasure</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
