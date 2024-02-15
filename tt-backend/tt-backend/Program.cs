@@ -69,6 +69,20 @@ app.MapGet("/api/pingauth", (ClaimsPrincipal user) =>
     return Results.Json(new { Email = email});
 }).RequireAuthorization();
 
+app.MapGet("/api/user", async (AppDbContext dbContext, ClaimsPrincipal user) =>
+{
+    var email = user.FindFirstValue(ClaimTypes.Email);
+    
+    var userData = await dbContext.GetAppUserByEmail(email).ToListAsync();
+
+    if (userData == null || !userData.Any())
+    {
+        return Results.NotFound();
+    }
+    
+    return Results.Json(userData);
+}).RequireAuthorization();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

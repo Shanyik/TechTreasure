@@ -11,6 +11,11 @@ public class AppDbContext : IdentityDbContext<AppUser>
         : base(options)
     {
     }
+    
+    public IQueryable<AppUser> GetAppUserByEmail(string email)
+    {
+        return Users.Where(u => u.Email == email);
+    }
 
     public DbSet<Ad> Ads { get; set; }
     public DbSet<AdImage> AdImages{ get; set; }

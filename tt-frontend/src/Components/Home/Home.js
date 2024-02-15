@@ -4,7 +4,7 @@ import { Card, Pagination, Container, Row, Col } from 'react-bootstrap';
 const Home = () => {
   const [ads, setAds] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const adsPerPage = 8; // Number of ads to display per page
+  const adsPerPage = 4; // Number of ads to display per page
 
   useEffect(() => {
     fetch('/api/Ad/GetAll', {
@@ -41,11 +41,10 @@ const Home = () => {
                 {ad.images && ad.images.length > 0 ? (
                   <Card.Img variant="top" src={ad.images[0].url} />
                 ) : (
-                  <div className="text-center" style={{ height: '200px', width: '100%' }}>No Picture</div>
+                  <div className="text-center" style={{ height: '300px', width: '100%' }}>No Picture</div>
                 )}
                 <Card.Body>
                   <Card.Title>{ad.name}</Card.Title>
-                  <Card.Text>{ad.description}</Card.Text>
                   <Card.Text>Price: ${ad.price}</Card.Text>
                   <Card.Text>Condition: {ad.condition}</Card.Text>
                   <Card.Text>Seller: {ad.seller.userName}</Card.Text>

@@ -67,6 +67,7 @@ function NavBar() {
   }
 
   return (
+    <div>
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
         <Navbar.Brand onClick={() => {navigate("/")} } className="me-5">TechTreasure</Navbar.Brand>
@@ -101,6 +102,7 @@ function NavBar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    </div>
   );
 }
 
