@@ -6,6 +6,7 @@ import Login from './Components/Auth/Login';
 import Registration from './Components/Auth/Registration';
 import Home from './Components/Home/Home';
 import NavBar from './Components/NavBar/NavBar';
+import Profile from './Components/Profile/Profile';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path='/getalladstest' element={<GetAllAdsTest />} />
           <Route path='/login' element={<Login />} />
           <Route path='/registration' element={<Registration />} />
+          <Route path='/profile' element={<Profile />} />
         </Routes>
         </div>
     </Router>
