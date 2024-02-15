@@ -116,7 +116,7 @@ const Registration = () => {
       };
 
   return (
-    <div className="container">
+    <div style={{ marginTop: '100px', marginBottom: '100px'}} className="container">
       {result && <Popup  message={result} />}
       {loading === null ? (
         <>

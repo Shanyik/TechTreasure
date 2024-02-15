@@ -14,7 +14,7 @@ function App() {
   return (
     
     <Router>
-      <div className='App'>
+      <div style={{ marginTop: '100px'}} className='App'>
         <NavBar />
         <Routes>
           <Route path='/' element={<Home />} />
