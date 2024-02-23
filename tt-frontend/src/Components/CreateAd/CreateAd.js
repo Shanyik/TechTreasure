@@ -21,30 +21,32 @@ export const CreateAd = () => {
     setAdData({ ...adData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setAdData({ ...adData, images: files });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(adData)
-    fetch('/api/Ad/Create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'credentials': 'include'
-      },
-      body: JSON.stringify(adData)
-    })
-    .then(response => {
-        console.log(response)
-        navigate("/profile")
+    
+    try {
+      const response = await fetch('/api/Ad/Create', {
+        method: 'POST',
+        body: adData,
+        credentials: 'include'
+      });
+
       if (response.ok) {
         console.log('Ad created successfully');
-        
+        navigate('/profile');
       } else {
         console.error('Failed to create ad');
       }
-    })
-    .catch(error => {
+    } catch (error) {
       console.error('Error creating ad:', error);
-    });
+    }
+    
   };
 
   return (
@@ -75,6 +77,11 @@ export const CreateAd = () => {
           <Form.Group controlId="formCondition">
             <Form.Label>Condition</Form.Label>
             <Form.Control type="text" placeholder="Enter condition" name="condition" value={adData.condition} onChange={handleChange} />
+          </Form.Group>
+
+          <Form.Group controlId="formImages">
+            <Form.Label>Images</Form.Label>
+            <Form.Control type="file" multiple accept="image/*" onChange={handleImageChange} />
           </Form.Group>
 
           <Button variant="primary" type="submit">
