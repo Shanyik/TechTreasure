@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
 
 export const CreateAd = () => {
-    const [user, setUser] = useState("");
+
+    const navigate = useNavigate();
 
     const [adData, setAdData] = useState({
         name: '',
@@ -10,22 +12,9 @@ export const CreateAd = () => {
         price: 0,
         category: '',
         condition: '',
-        seller: "",
         images: []
     });
 
-    useEffect(() => {
-        fetch('/api/user')
-            .then(response => response.json())
-            .then(data => {
-                setUser(data[0]);
-                setAdData(AdData => ({
-                    ...AdData,
-                    seller: data[0]
-                }))
-            })
-            .catch(error => console.error('Error fetching user:', error))
-    }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,18 +34,10 @@ export const CreateAd = () => {
     })
     .then(response => {
         console.log(response)
+        navigate("/profile")
       if (response.ok) {
         console.log('Ad created successfully');
-        // Reset form data if needed
-        setAdData({
-          name: '',
-          description: '',
-          price: 0,
-          category: '',
-          condition: '',
-          seller: user,
-          images: []
-        });
+        
       } else {
         console.error('Failed to create ad');
       }

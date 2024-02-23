@@ -53,6 +53,12 @@ public class AdController : ControllerBase
         {
             ad.DatePosted = DateTime.UtcNow;
             ad.Sold = false;
+            
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userManager.FindByIdAsync(userId);
+            ad.Seller = user;
+
+            ad.Seller = user;
             await _adRepository.Create(ad);
             return Ok("Added successfully!");
         }
