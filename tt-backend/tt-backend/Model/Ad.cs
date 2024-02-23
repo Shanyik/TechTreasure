@@ -11,7 +11,7 @@ public class Ad
     public bool Sold { get; set; }
     public DateTime DatePosted { get; set; }
     public int Views { get; set; }
-    public AppUser Seller { get; set; }
+    public AppUser? Seller { get; set; }
     public List<AdImage> Images { get; set; } // for cloud hosting storage
     
 }

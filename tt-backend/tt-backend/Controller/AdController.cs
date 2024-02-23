@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using tt_backend.Model;
 using tt_backend.Repository.AdRepo;
@@ -11,10 +13,12 @@ namespace tt_backend.Controller;
 public class AdController : ControllerBase
 {
     private readonly IAdRepository _adRepository;
+    private readonly UserManager<AppUser> _userManager;
 
-    public AdController(IAdRepository adRepository)
+    public AdController(IAdRepository adRepository, UserManager<AppUser> userManager)
     {
         _adRepository = adRepository;
+        _userManager = userManager;
     }
 
     [HttpGet("GetAll")]
@@ -39,13 +43,16 @@ public class AdController : ControllerBase
     [HttpPost("Create"), Authorize]
     public async Task<IActionResult> Create(Ad ad)
     {
-        if (ad == null)
+        
+        if (!ModelState.IsValid)
         {
             return BadRequest("Something is wrong with the ad!");
         }
-
+    
         try
         {
+            ad.DatePosted = DateTime.UtcNow;
+            ad.Sold = false;
             await _adRepository.Create(ad);
             return Ok("Added successfully!");
         }

@@ -81,7 +81,7 @@ const Login = () => {
             </div>
             </div>
             <div className="form-group">
-              <label className="form-label">username:</label>
+              <label className="form-label">Username:</label>
               <input
                 type="username"
                 id="eusername"

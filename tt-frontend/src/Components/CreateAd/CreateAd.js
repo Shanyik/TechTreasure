@@ -10,7 +10,6 @@ export const CreateAd = () => {
         price: 0,
         category: '',
         condition: '',
-        sold: false,
         seller: "",
         images: []
     });
@@ -55,7 +54,6 @@ export const CreateAd = () => {
           price: 0,
           category: '',
           condition: '',
-          sold: false,
           seller: user,
           images: []
         });
