@@ -74,7 +74,10 @@ const Profile = () => {
                         <Col key={index}>
                         <Card className="h-100 d-flex align-items-center justify-content-center"> 
                             {ad.images && ad.images.length > 0 ? (
-                            <Card.Img variant="top" src={ad.images[0].url} />
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60%', marginTop: '5%' }}>
+                                <Card.Img variant="top" src={ad.images[0].imageUrl} />
+                            </div>
+                                
                             ) : (
                             <div className="text-center" style={{ height: '300px', width: '100%' }}>No Picture</div>
                             )}

@@ -1,9 +1,8 @@
 ﻿using System.Security.Claims;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using tt_backend.Model;
 using tt_backend.Repository.AdRepo;
 
@@ -16,17 +15,16 @@ public class AdController : ControllerBase
 {
     private readonly IAdRepository _adRepository;
     private readonly UserManager<AppUser> _userManager;
-    private readonly Cloudinary _cloudinary;
 
     public AdController(IAdRepository adRepository, UserManager<AppUser> userManager)
     {
-        
-        Account account = new Account(
-            "dcfbxzvwo",
-            "887462236519526",
-            "hrpQYl4KG1w19Lg6x6slH2pmlS4");
-        
-        _cloudinary = new Cloudinary(account);
+        IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        var connectionStrings = configuration.GetSection("Cloudinary").GetChildren()
+            .ToDictionary(c => c.Key, c => c.Value);
         
         _adRepository = adRepository;
         _userManager = userManager;
@@ -61,8 +59,16 @@ public class AdController : ControllerBase
         public List<IFormFile> Images { get; set; }
     }
 
+    [HttpGet("StatusCheck")]
+    public async Task<IActionResult> StatusCheck()
+    {
+        using var client = new HttpClient();
+        var response = await client.GetAsync("http://localhost:5246/Image/StatusCheck");
+        return Ok(response.Content.ReadAsStringAsync());
+    }
+    
     [HttpPost("Create"), Authorize]
-    public async Task<IActionResult> Create([FromForm] AdCreateModel adData)
+    public async Task<IActionResult> Create(AdCreateModel adData)
     {
         if (!ModelState.IsValid)
         {
@@ -71,23 +77,47 @@ public class AdController : ControllerBase
 
         try
         {
-            var imageUrls = new List<string>();
-
-            foreach (var file in adData.Images)
-            {
-                using (var stream = file.OpenReadStream())
-                {
-                    var uploadParams = new ImageUploadParams
-                    {
-                        File = new FileDescription(file.FileName, stream)
-                    };
-                    var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-                    imageUrls.Add(uploadResult.SecureUri.AbsoluteUri);
-                }
-            }
-            
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = await _userManager.FindByIdAsync(userId);
+            List<string>? imageUrls;
+
+            // Create a multipart form data content
+            var form = new MultipartFormDataContent();
+            
+            // Add each image file to the form
+            foreach (var imageFile in adData.Images)
+            {
+                var stream = imageFile.OpenReadStream();
+                var imageContent = new StreamContent(stream);
+
+                // Add content disposition with the name "images" and the file name
+                imageContent.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data")
+                {
+                    Name = "images",
+                    FileName = imageFile.FileName
+                };
+
+                // Add content type if needed
+                imageContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(imageFile.ContentType);
+
+                // Add image content to the form
+                form.Add(imageContent);
+            }
+
+            // Send the request to CloudImage API
+            var client = new HttpClient();
+            
+            var response = await client.PostAsync("http://localhost:5246/Image/upload", form);
+            if (response.IsSuccessStatusCode)
+            {
+                var imageUrlJson = await response.Content.ReadAsStringAsync();
+                imageUrls = JsonConvert.DeserializeObject<List<string>>(imageUrlJson);
+            }
+            else
+            {
+                return StatusCode((int)response.StatusCode, "Failed to upload image to CloudImage API");
+            }
+            
 
             var ad = new Ad
             {
@@ -98,7 +128,7 @@ public class AdController : ControllerBase
                 Condition = adData.Condition,
                 DatePosted = DateTime.UtcNow,
                 Sold = false,
-                Seller = user, 
+                Seller = user,
                 Images = imageUrls.Select(url => new AdImage { ImageUrl = url }).ToList()
             };
 
