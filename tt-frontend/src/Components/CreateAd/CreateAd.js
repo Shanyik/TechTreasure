@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Form, Button } from 'react-bootstrap';
 
 export const CreateAd = () => {
+
+  const navigate = useNavigate();
 
   const [adData, setAdData] = useState({
     Name: '',
@@ -50,7 +51,7 @@ export const CreateAd = () => {
       }
 
       setSuccessMessage('Ad created successfully!');
-      setErrorMessage('');
+      navigate("/")
     } catch (error) {
       setErrorMessage(error.message || 'Failed to create ad');
       setSuccessMessage('');
