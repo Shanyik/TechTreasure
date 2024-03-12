@@ -72,14 +72,14 @@ const Profile = () => {
                     <Row  md={4} className="g-4"> 
                     {ads.map((ad, index) => (
                         <Col key={index}>
-                        <Card className="h-100 d-flex align-items-center justify-content-center"> 
+                        <Card className="h-100 d-flex align-items-center justify-content-center" style={{minHeight: '400px'}}> 
                             {ad.images && ad.images.length > 0 ? (
-                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60%', marginTop: '5%' }}>
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70%', marginTop: '5%' }}>
                                 <Card.Img variant="top" src={ad.images[0].imageUrl} />
                             </div>
                                 
                             ) : (
-                            <div className="text-center" style={{ height: '300px', width: '100%' }}>No Picture</div>
+                            <div className="text-center" style={{ minHeight: '400px', width: '100%',display: 'flex', justifyContent: 'center',alignItems: 'center' }}>No Picture</div>
                             )}
                             <Card.Body>
                             <Card.Title>{ad.name}</Card.Title>

@@ -51,7 +51,7 @@ export const CreateAd = () => {
       }
 
       setSuccessMessage('Ad created successfully!');
-      navigate("/")
+      navigate("/profile")
     } catch (error) {
       setErrorMessage(error.message || 'Failed to create ad');
       setSuccessMessage('');

@@ -15,7 +15,7 @@ public class AdRepository : IAdRepository
     
     public async Task<IEnumerable<Ad>> GetAll()
     {
-        return await _context.Ads.Include(ad => ad.Seller).AsNoTracking().ToListAsync();
+        return await _context.Ads.Include(ad => ad.Seller).Include(ad => ad.Images).AsNoTracking().ToListAsync();
     }
 
     public async Task Create(Ad ad)
@@ -26,11 +26,17 @@ public class AdRepository : IAdRepository
 
     public async Task<Ad?> GetById(int id)
     {
-        return await _context.Ads.FirstOrDefaultAsync(c => c.Id == (uint)id);
+        return await _context.Ads.Include(ad => ad.Images).FirstOrDefaultAsync(c => c.Id == (uint)id);
     }
 
     public async Task<IEnumerable<Ad>> GetAllByUserId(string id)
     {
         return await _context.Ads.Include(ad => ad.Seller).Include(ad => ad.Images).Where(ad => ad.Seller.Id == id).ToListAsync();
+    }
+
+    public async Task Delete(Ad ad)
+    {
+        _context.Ads.Remove(ad);
+        await _context.SaveChangesAsync();
     }
 }

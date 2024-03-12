@@ -19,7 +19,7 @@ function App() {
       <div className='App'>
         <NavBar />
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='' element={<Home />} />
           <Route path='/getalladstest' element={<GetAllAdsTest />} />
           <Route path='/allads' element={<AllAds />} />
           <Route path='/login' element={<Login />} />

@@ -36,16 +36,19 @@ const Home = () => {
       <div className="text-center mb-4" style={{marginTop: '100px'}}>
         <h1>Featured Ads</h1>
       </div>
-      <Container style={{ minWidth: '80%', margin: 'auto', position: "relative", transform: "translate(0, 0)", left: 0, top: 0}}>
-        <Row  md={4} className="g-4"> 
-          {currentAds.map((ad, index) => (
-            <Col key={index}>
-              <Card className="h-100 d-flex align-items-center justify-content-center"> 
-                {ad.images && ad.images.length > 0 ? (
-                  <Card.Img variant="top" src={ad.images[0].url} />
-                ) : (
-                  <div className="text-center" style={{ height: '300px', width: '100%' }}>No Picture</div>
-                )}
+      <Container style={{ minWidth: '80%', margin: 'auto', position: "relative", transform: "translate(0, 0)", left: 0, top: 0, marginBottom: '100px'}}>
+                    <Row  md={4} className="g-4"> 
+                    {currentAds.map((ad, index) => (
+                        <Col key={index}>
+                        <Card className="h-100 d-flex align-items-center justify-content-center" style={{minHeight: '600px'}}> 
+                            {ad.images && ad.images.length > 0 ? (
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70%', marginTop: '5%' }}>
+                                <Card.Img variant="top" src={ad.images[0].imageUrl} />
+                            </div>
+                                
+                            ) : (
+                            <div className="text-center" style={{ minHeight: '400px', width: '100%',display: 'flex', justifyContent: 'center',alignItems: 'center' }}>No Picture</div>
+                            )}
                 <Card.Body>
                   <Card.Title>{ad.name}</Card.Title>
                   <Card.Text>Price: ${ad.price}</Card.Text>

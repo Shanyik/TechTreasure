@@ -34,7 +34,9 @@ builder.Services
     .AddEntityFrameworkStores<AppDbContext>();
 
 //Services
+builder.Services.AddHttpClient();
 builder.Services.AddScoped<IAdRepository, AdRepository>();  
+
 
 var app = builder.Build();
 

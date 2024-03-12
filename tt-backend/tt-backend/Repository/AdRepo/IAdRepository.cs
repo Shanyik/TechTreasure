@@ -9,4 +9,5 @@ public interface IAdRepository
 
     Task<Ad?> GetById(int id);
     Task<IEnumerable<Ad>> GetAllByUserId(string id);
+    Task Delete(Ad ad);
 }
