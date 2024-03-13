@@ -71,7 +71,6 @@ const Registration = () => {
           firstName: firstName
         };
 
-        // Check if any of the required fields are empty
 
         if (
           username.trim() === '' ||
@@ -88,7 +87,6 @@ const Registration = () => {
           return;
         }
     
-        // Validation Criteria
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}$/;
         const phoneNumberRegex = /^\d{9}$/;

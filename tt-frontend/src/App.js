@@ -10,6 +10,7 @@ import Profile from './Components/Profile/Profile';
 import AllAds from './Components/AllAds/AllAds';
 import { CreateAd } from './Components/CreateAd/CreateAd';
 import AdDetail from './Components/ShowAds/AdDetail';
+import Footer from './Components/Footer';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path='/ad/create' element={<CreateAd />} />
           <Route path="/ad/:id" element={<AdDetail />} />
         </Routes>
+        <Footer/>
         </div>
     </Router>
     

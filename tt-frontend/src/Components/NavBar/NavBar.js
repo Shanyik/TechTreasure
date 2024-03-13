@@ -48,7 +48,7 @@ function NavBar() {
   }
 
   const handleSearch = () => {
-    //nedd to do
+    //need to do
   } 
 
   const handleLogOut = () => {

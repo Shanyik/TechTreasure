@@ -59,7 +59,7 @@ export const CreateAd = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div style={{position: 'relative', top: '10%', left: '0%', transform: 'translate(0%,10%)', marginBottom: '200px'}} className="container mt-5">
       <h2>Create Ad</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
