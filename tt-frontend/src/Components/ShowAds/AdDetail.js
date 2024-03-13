@@ -10,7 +10,7 @@ const AdDetail = () => {
     useEffect(() => {
         fetch(`/api/Ad/GetById?id=${id}`)
         .then(response => response.json())
-        .then(data =>setAd(data), )
+        .then(data =>setAd(data))
         .catch(error => console.error("Error fetching ad details", error))
     }, [id])
 

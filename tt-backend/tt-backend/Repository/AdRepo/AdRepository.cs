@@ -39,4 +39,10 @@ public class AdRepository : IAdRepository
         _context.Ads.Remove(ad);
         await _context.SaveChangesAsync();
     }
+
+    public async Task Update(Ad ad)
+    {
+        _context.Entry(ad).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+    }
 }

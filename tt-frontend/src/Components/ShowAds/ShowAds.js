@@ -26,6 +26,10 @@ const ShowAds = ({ user, isPagination, isSearchBar }) => {
         setSearchQuery(e.target.value);
     };
 
+    const handleViewIncrase = (id) => {
+        fetch(`/api/Ad/IncrementViews?adId=${id}`)
+    }
+
     const filteredAds = ads.filter(ad => ad.name.toLowerCase().includes(searchQuery.toLowerCase()));
     const adsToDisplay = isPagination ? ads.slice((currentPage - 1) * adsPerPage, currentPage * adsPerPage) : filteredAds;
 
@@ -52,7 +56,7 @@ const ShowAds = ({ user, isPagination, isSearchBar }) => {
             <Row className="g-4" md={4}>
                     {adsToDisplay.map((ad, index) => (
                         <Col key={index}>
-                            <Link style={{textDecoration: "none"}} to={`/ad/${ad.id}`} key={index}>
+                            <Link style={{textDecoration: "none"}} to={`/ad/${ad.id}`} onClick={ () => handleViewIncrase(ad.id)} key={index}>
                                 <Card className="h-100 d-flex align-items-center justify-content-center cardHover" style={{ minHeight: '500px' }}> 
                                     {ad.images && ad.images.length > 0 ? (
                                         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70%' }}>

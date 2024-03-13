@@ -200,4 +200,29 @@ public class AdController : ControllerBase
             return BadRequest($"Error deleting ad! {e.Message}");
         }
     }
+
+    [HttpGet("IncrementViews")]
+    public async Task<IActionResult> IncrementViews(int adId)
+    {
+        try
+        {
+            var ad = await _adRepository.GetById(adId);
+
+            if (ad == null)
+            {
+                return NotFound("Ad not found!");
+            }
+
+            ad.Views++;
+
+            await _adRepository.Update(ad);
+            
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }
