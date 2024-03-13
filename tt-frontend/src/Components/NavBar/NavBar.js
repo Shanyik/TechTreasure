@@ -71,7 +71,7 @@ function NavBar() {
     <div>
     <Navbar expand="lg" className="bg-custom-color fixed-top" >
       <Container fluid>
-        <Navbar.Brand onClick={() => {navigate("/")} } className="me-5">TechTreasure</Navbar.Brand>
+        <Navbar.Brand style={{cursor: "pointer"}} onClick={() => {navigate("/")} } className="me-5">TechTreasure</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Form className="d-flex justify-content-center align-items-center flex-grow-1">

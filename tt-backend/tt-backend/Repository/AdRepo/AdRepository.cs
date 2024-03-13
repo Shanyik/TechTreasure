@@ -26,7 +26,7 @@ public class AdRepository : IAdRepository
 
     public async Task<Ad?> GetById(int id)
     {
-        return await _context.Ads.Include(ad => ad.Images).FirstOrDefaultAsync(c => c.Id == (uint)id);
+        return await _context.Ads.Include(ad => ad.Seller).Include(ad => ad.Images).FirstOrDefaultAsync(c => c.Id == (uint)id);
     }
 
     public async Task<IEnumerable<Ad>> GetAllByUserId(string id)

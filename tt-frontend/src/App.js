@@ -9,6 +9,7 @@ import NavBar from './Components/NavBar/NavBar';
 import Profile from './Components/Profile/Profile';
 import AllAds from './Components/AllAds/AllAds';
 import { CreateAd } from './Components/CreateAd/CreateAd';
+import AdDetail from './Components/ShowAds/AdDetail';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path='/registration' element={<Registration />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/ad/create' element={<CreateAd />} />
+          <Route path="/ad/:id" element={<AdDetail />} />
         </Routes>
         </div>
     </Router>

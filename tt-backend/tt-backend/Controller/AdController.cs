@@ -58,7 +58,7 @@ public class AdController : ControllerBase
         return Ok(response.Content.ReadAsStringAsync());
     }
     
-    [HttpGet("GetById:{id}")]
+    [HttpGet("GetById")]
     public async Task<IActionResult> GetById(int id)
     {
         try

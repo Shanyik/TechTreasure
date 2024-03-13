@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Pagination } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import "./Ads.css" 
 
 const ShowAds = ({ user, isPagination, isSearchBar }) => {
     const [ads, setAds] = useState([]);
@@ -31,7 +33,7 @@ const ShowAds = ({ user, isPagination, isSearchBar }) => {
 
     return (
         <> 
-            <Container style={{ minWidth: '80%', margin: 'auto', marginBottom: '100px', position: 'relative', transform: 'translate(0%,0%)', left: '0%', top: '0%'}}>
+            <Container style={{ minWidth: '80%', margin: 'auto', marginBottom: '20px', position: 'relative', transform: 'translate(0%,0%)', left: '0%', top: '0%'}}>
             {isSearchBar ? (
                     <>
                     <Row className="g-4" md={12} style={{ marginBottom: '20px' }}>
@@ -48,25 +50,25 @@ const ShowAds = ({ user, isPagination, isSearchBar }) => {
                     </>
                 ) : (null)}
             <Row className="g-4" md={4}>
-                
-                
                     {adsToDisplay.map((ad, index) => (
                         <Col key={index}>
-                            <Card className="h-100 d-flex align-items-center justify-content-center" style={{ minHeight: '400px' }}> 
-                                {ad.images && ad.images.length > 0 ? (
-                                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70%', marginTop: '5%' }}>
-                                        <Card.Img variant="top" src={ad.images[0].imageUrl} />
-                                    </div>     
-                                ) : (
-                                    <div className="text-center" style={{ minHeight: '400px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>No Picture</div>
-                                )}
-                                <Card.Body>
-                                    <Card.Title>{ad.name}</Card.Title>
-                                    <Card.Text>Price: ${ad.price}</Card.Text>
-                                    <Card.Text>Condition: {ad.condition}</Card.Text>
-                                    {user && <Card.Text>Seller: {ad.seller.userName}</Card.Text>}
-                                </Card.Body>
-                            </Card>
+                            <Link style={{textDecoration: "none"}} to={`/ad/${ad.id}`} key={index}>
+                                <Card className="h-100 d-flex align-items-center justify-content-center cardHover" style={{ minHeight: '500px' }}> 
+                                    {ad.images && ad.images.length > 0 ? (
+                                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70%' }}>
+                                            <Card.Img variant="top" src={ad.images[0].imageUrl} />
+                                        </div>     
+                                    ) : (
+                                        <div className="text-center" style={{ minHeight: '400px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>No Picture</div>
+                                    )}
+                                    <Card.Body>
+                                        <Card.Title>{ad.name}</Card.Title>
+                                        <Card.Text>Price: ${ad.price}</Card.Text>
+                                        <Card.Text>Condition: {ad.condition}</Card.Text>
+                                        {!user && <Card.Text>Seller: {ad.seller.userName}</Card.Text>}
+                                    </Card.Body>
+                                </Card>
+                            </Link>
                         </Col>
                     ))}
                 </Row>
